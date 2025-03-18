@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Скриншоты результатов формы без Turbo Drive
 
-Things you may want to cover:
+![Preview](app/assets/images/network-panel-html.png)
 
-* Ruby version
+![Preview](app/assets/images/terminal-html.png)
 
-* System dependencies
+## Скриншоты результатов формы с Turbo Drive
 
-* Configuration
+![Preview](app/assets/images/network-panel-turbo-drive.png)
 
-* Database creation
+![Preview](app/assets/images/terminal-turbo-drive.png)
 
-* Database initialization
+На сетевой панели (Network) хорошо видно разницу в поведении форм с Turbo Drive и без него. Если Turbo Drive отключен, форма отправляет стандартный document-запрос, и сервер возвращает полную HTML-страницу. Это классическое поведение для веб-форм, при котором страница полностью перезагружается.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Если же Turbo Drive включен, форма отправляет XHR-запрос (асинхронный запрос). Это видно по заголовку `Accept`, где указано `text/vnd.turbo-stream.html`. В этом случае сервер возвращает только ту часть страницы, которая должна измениться, и Turbo Drive динамически обновляет её без перезагрузки. Это делает взаимодействие с приложением быстрым и плавнып.
