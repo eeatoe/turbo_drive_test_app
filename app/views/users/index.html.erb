@@ -1,0 +1,74 @@
+<div class="flex flex-col gap-4 pb-20">
+  <h1 class="flex text-4xl font-bold text-gray-900">Регистрация пользователей</h1>
+  <p class="flex text-xl font-light text-gray-700">Левая форма для регистрации пользователей использует Turbo Drive, а правая нет.</p>
+</div>
+
+<!-- Формы регистрации -->
+<div class="flex flex-row gap-6">
+  <div class="grid grid-flow-row gap-4">
+    <!-- Форма с включенным Turbo Drive -->
+    <div class="flex flex-col items-center gap-4 py-8 px-4 w-fit bg-transparent border-2 rounded-xl border-gray-400 shadow-xs">
+      <h2 class="text-2xl font-bold mb-2 w-90 text-center">Форма регистрации (Turbo Drive включен)</h2>
+
+      <%= form_with model: @user, scope: :user , method: :post do |form| %>
+        <div class="mb-4">
+          <%= form.label :name, "Имя", class: "block text-sm font-secondary text-gray-800 font-medium text-gray-800" %>
+          <%= form.text_field :name, placeholder: "Твое имя", class: "block w-90 h-12 px-6 font-secondary rounded-full bg-gray-100 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:text-teal-600 hover:text-accent-600" %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :email, "Email", class: "block text-sm font-secondary text-gray-800 font-medium text-gray-800" %>
+          <%= form.email_field :email, placeholder: "example@gmail.com", class: "block w-90 h-12 px-6 font-secondary rounded-full bg-gray-100 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:text-teal-600 hover:text-accent-600" %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :password, "Пароль", class: "block text-sm font-secondary text-gray-800 font-medium text-gray-800" %>
+          <%= form.password_field :password, placeholder: "Пароль", class: "block w-90 h-12 px-6 font-secondary rounded-full bg-gray-100 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:text-teal-600 hover:text-accent-600" %>
+        </div>
+        <div class="mb-4">
+          <%= form.label :password_confirmation, "Пароль подтверждение", class: "block text-sm font-secondary text-gray-800 font-medium text-gray-800" %>
+          <%= form.password_field :password_confirmation, placeholder: "Тот же пароль", class: "block w-90 h-12 px-6 font-secondary rounded-full bg-gray-100 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:text-teal-600 hover:text-accent-600" %>
+        </div>
+        <!-- Кнопка для отправки формы -->
+        <%= form.submit "Зарегистрировать пользователя", class: "flex items-center justify-center p-4 w-90 font-bold text-white bg-gray-800 rounded-full shadow-xs cursor-pointer select-none hover:bg-teal-600" %>
+      <% end %>
+    </div>
+  </div>
+  
+  <!-- Форма с выключенным Turbo Drive -->
+  <div class="flex flex-col items-center gap-4 py-8 px-4 w-fit bg-transparent border-2 rounded-xl border-gray-400 shadow-xs">
+    <h2 class="text-2xl font-bold mb-2 w-90 text-center">Форма регистрации (Turbo Drive отключен)</h2>
+
+    <%= form_with model: @user, scope: :user, method: :post, data: { turbo: false } do |form| %>
+      <div class="mb-4">
+        <%= form.label :name, "Имя", class: "block text-sm font-secondary text-gray-800 font-medium text-gray-800" %>
+        <%= form.text_field :name, placeholder: "Твое имя", class: "block w-90 h-12 px-6 font-secondary rounded-full bg-gray-100 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:text-teal-600 hover:text-accent-600" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :email, "Email", class: "block text-sm font-secondary text-gray-800 font-medium text-gray-800" %>
+        <%= form.email_field :email, placeholder: "example@gmail.com", class: "block w-90 h-12 px-6 font-secondary rounded-full bg-gray-100 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:text-teal-600 hover:text-accent-600" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :password, "Пароль", class: "block text-sm font-secondary text-gray-800 font-medium text-gray-800" %>
+        <%= form.password_field :password, placeholder: "Пароль", class: "block w-90 h-12 px-6 font-secondary rounded-full bg-gray-100 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:text-teal-600 hover:text-accent-600" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :password_confirmation, "Пароль подтверждение", class: "block text-sm font-secondary text-gray-800 font-medium text-gray-800" %>
+        <%= form.password_field :password, placeholder: "Тот же пароль", class: "block w-90 h-12 px-6 font-secondary rounded-full bg-gray-100 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:text-teal-600 hover:text-accent-600" %>
+      </div>
+      <!-- Кнопка для отправки формы -->
+      <%= form.submit "Зарегистрировать пользователя", class: "flex items-center justify-center p-4 w-90 font-bold text-white bg-gray-800 rounded-full shadow-xs cursor-pointer select-none hover:bg-teal-600" %>
+    <% end %>
+  </div>
+</div>
+
+<!-- Линия -->
+<hr class="my-20 border-t border-gray-400">
+
+<div class="flex flex-col w-fit gap-6">
+  <h1 class="flex text-4xl font-bold text-gray-900">Список зарегистрированных пользователей</h1>
+
+  <div class="grid grid-cols-3 gap-2">
+    <% @users.each do |user| %>
+      <%= render UserDataCardComponent.new(user: user) %>
+    <% end %>
+  </div>
+</div>
